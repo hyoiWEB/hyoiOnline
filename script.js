@@ -96,7 +96,7 @@ $(function() {
     const constraints = {
       audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
       video: {deviceId: videoSource ? {exact: videoSource} : undefined,
-      facingMode: { exact: 'environment' } : undefined,
+      facingMode: "environment" : undefined,
       },
     };
 

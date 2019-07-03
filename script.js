@@ -95,9 +95,8 @@ $(function() {
     const videoSource = $('#videoSource').val();
     const constraints = {
       audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-      video: {
-        facingMode: "environment" : undefined,
-        deviceId: videoSource ? {exact: videoSource} : undefined,
+      video: {deviceId: videoSource ? {exact: videoSource} : undefined,
+      facingMode: "environment" : undefined,
       },
     };
 

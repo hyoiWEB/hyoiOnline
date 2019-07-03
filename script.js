@@ -97,6 +97,7 @@ $(function() {
       audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
       video: {deviceId: videoSource ? {exact: videoSource} : undefined,
       facingMode: "environment" : undefined,
+      facingMode: "user" : undefined,
       },
     };
 

@@ -95,8 +95,14 @@ $(function() {
     const videoSource = $('#videoSource').val();
     const constraints = {
       audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-      video: {deviceId: videoSource ? {exact: videoSource} : undefined},
+      video: {deviceId: videoSource ? {exact: videoSource} : undefined,
+    },
     };
+
+    if(videoSource == "Camera 2") {
+      facingMode: "environment" : undefined
+    }
+
     navigator.mediaDevices.getUserMedia(constraints).then(stream => {
       $('#my-video').get(0).srcObject = stream;
       localStream = stream;

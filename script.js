@@ -183,3 +183,5 @@ $(function() {
     $('#step3').show();
   }
 });
+
+window.location.reload();

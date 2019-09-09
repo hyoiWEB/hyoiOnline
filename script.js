@@ -30,9 +30,9 @@ $(function() {
       return;
     }
 
-    if( '#UserID' === 1){
+    if( '{#UserID}' === 1){
       room = peer.joinRoom('mesh_multi_' + roomName, {stream: localStream});
-    }else if( '#UserID' === 0){
+    }else if( '{#UserID}' === 0){
       room = peer.joinRoom("roomName", {mode: 'mesh'});
     }
 

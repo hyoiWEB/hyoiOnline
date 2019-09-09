@@ -29,7 +29,12 @@ $(function() {
     if (!roomName) {
       return;
     }
-    room = peer.joinRoom('mesh_multi_' + roomName, {stream: localStream});
+
+    if( UserID === 1){
+      room = peer.joinRoom('mesh_multi_' + roomName, {stream: localStream});
+    }else if(UserID === 0){
+      room = peer.joinRoom("roomName", {mode: 'mesh'});
+    }
 
     $('#room-id').text(roomName);
     step3(room);

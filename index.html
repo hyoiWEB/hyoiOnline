@@ -39,13 +39,44 @@
       </div>
     </div>
 
+
+    <script>
+        var roomlist = []; //ルーム名のリスト
+        var UserList = [0,0]; //ユーザIDとUserFlagのリスト
+    </script>
+
     <p>あなたのID: <span id="my-id">...</span></p>
+    <script>
+      var UserID = document.getElementById('my-id');
+    </script>
     <!-- Make calls to others -->
     <div id="step2">
       <h3>Roomに参加</h3>
       <form id="make-call" class="pure-form">
         <input type="text" placeholder="Room名" id="join-room">
         <button class="pure-button pure-button-success" type="submit">参加</button>
+        
+        /*
+        <script type="text/javascript" src="./script.js"></script>
+        <script type="text/javascript">
+            testTitle = "タイトル";
+        </script>
+        */
+
+
+        <script>
+          for(var i = 0 ; i <= roomlist.length ; i++){
+            if(roomlist[i] !== text){
+              roomlist.push(roomName);
+              var NewUser = [UserID][1];
+              UserList.push(NewUser);
+            }else{
+              var NewUser = [UserID][0];
+              UserList.push(NewUser);
+            }
+
+          }
+        </script>
       </form>
       <p><strong>注意：</strong>簡単なRoom名にしてしまうと知らないグループに参加する恐れがあります。また、ページ上にエラーが出た際は下の"このページを再読込します"ボタンを押すと、改善する場合が御座います。</p>
       <input type="button" value="このページを再読込します" onclick="window.location.reload();" />

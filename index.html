@@ -42,7 +42,7 @@
 
     <script>
         var roomlist = []; //ルーム名のリスト
-        var UserList = [0,0]; //ユーザIDとUserFlagのリスト
+        var UserList = {}; //ユーザIDとUserFlagの連想配列
     </script>
 
     <p>あなたのID: <span id="my-id">...</span></p>
@@ -55,16 +55,14 @@
       <form id="make-call" class="pure-form">
         <input type="text" placeholder="Room名" id="join-room">
         <button class="pure-button pure-button-success" type="submit">参加</button>
-        
+
         <script>
           for(var i = 0 ; i <= roomlist.length ; i++){
-            if(roomlist[i] !== text){
+            if(roomlist[i] !== roomName){
               roomlist.push(roomName);
-              var NewUser = [UserID][1];
-              UserList.push(NewUser);
+              UserList.UserID = 1;
             }else{
-              var NewUser = [UserID][0];
-              UserList.push(NewUser);
+              UserList.UserID = 0;
             }
 
           }

@@ -29,25 +29,7 @@ $(function() {
     if (!roomName) {
       return;
     }
-
-    var roomlist = []; //ルーム名のリスト
-    var UserList = {}; //ユーザIDとUserFlagの連想配列
-
-    do{
-      if( roomlist.length === 0 || roomlist[i] !== roomName ){
-        roomlist.push(roomName);
-        UserList.peerID = 1;
-        i++;
-      }else{
-        UserList.peerID = 0;
-      }
-    }while(i <= room.length)
-
-    if( UserList.PeerID === 1){
-      room = peer.joinRoom('mesh_multi_' + roomName, {stream: localStream});
-    }else if( UserList.PeerID === 0){
-      room = peer.joinRoom("roomName", {mode: 'mesh'});
-    }
+    room = peer.joinRoom('mesh_multi_' + roomName, {stream: localStream});
 
     $('#room-id').text(roomName);
     step3(room);

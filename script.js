@@ -30,9 +30,21 @@ $(function() {
       return;
     }
 
-    if( '{#UserList.UserID}' === 1){
+    var roomlist = []; //ルーム名のリスト
+    var UserList = {}; //ユーザIDとUserFlagの連想配列
+
+    for(var i = 0 ; i <= roomlist.length ; i++){
+      if(roomlist[i] !== roomName){
+        roomlist.push(roomName);
+        UserList.peerID = 1;
+      }else{
+        UserList.peerID = 0;
+      }
+    }
+
+    if( UserList.PeerID === 1){
       room = peer.joinRoom('mesh_multi_' + roomName, {stream: localStream});
-    }else if( '{#UserList.UserID}' === 0){
+    }else if( UserList.PeerID === 0){
       room = peer.joinRoom("roomName", {mode: 'mesh'});
     }
 

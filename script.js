@@ -33,14 +33,15 @@ $(function() {
     var roomlist = []; //ルーム名のリスト
     var UserList = {}; //ユーザIDとUserFlagの連想配列
 
-    for(var i = 0 ; i <= roomlist.length ; i++){
-      if(roomlist[i] !== roomName){
+    do{
+      if( roomlist.length === 0 || roomlist[i] !== roomName ){
         roomlist.push(roomName);
         UserList.peerID = 1;
+        i++;
       }else{
         UserList.peerID = 0;
       }
-    }
+    }while(i <= room.length)
 
     if( UserList.PeerID === 1){
       room = peer.joinRoom('mesh_multi_' + roomName, {stream: localStream});

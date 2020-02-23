@@ -1,6 +1,82 @@
+/*ナビゲーション----------------------------------------------------------------*/
 /* eslint-disable require-jsdoc */
 'use strict'
 
+$(function() {
+
+  var
+	  winW = $(window).width(),
+		winH = $(window).height(),
+		nav = $('#mainnav ul a'),
+		curPos = $(this).scrollTop();
+
+	if (winW < 880){
+		var headerH =0;
+	}
+	else{
+		var headerH =63;
+	}
+
+	$(nav).on('click', function(){
+		nav.removeClass('active');
+  	var $el = $(this),
+		id = $el.attr('href');
+ 		$('html, body').animate({
+   		scrollTop: $(id).offset().top - headerH
+ 		}, 500);
+		$(this).addClass('active');
+		if (winW < 880){
+			$('#menuWrap').next().slideToggle();
+			$('#menuBtn').removeClass('close');
+		}
+ 		return false;
+	});
+
+	var timer = false;
+	$(window).bind('load resize',function(){
+		if (timer !== false){clearTimeout(timer);}
+		timer = setTimeout(function(){
+			var
+				w = $(window).innerWidth(),
+				bg = $('.bg'),
+				bgH = bg.height();
+
+			if(w > 800){
+				$(function(){
+			  	$(".vMid").css('height', bgH);
+				});
+			}
+			else{
+				$(function(){
+			  	$(".vMid").css({'height':'auto','padding':'50px 20px'});
+				});
+			}
+		});
+	});
+
+	$('.panel').hide();
+	$('#menuWrap').toggle(function(){
+		$(this).next().slideToggle();
+		$('#menuBtn').toggleClass('close');
+	},
+	function(){
+		$(this).next().slideToggle();
+		$('#menuBtn').removeClass('close');
+	});
+
+	$(window).on('scroll', function(){
+		var curPos = $(this).scrollTop();
+		if(curPos > 80){
+			$('#mainnav').addClass('changeNav');
+		}
+		else{
+			$('#mainnav').removeClass('changeNav');
+		}
+	});
+});
+/*----------------------------------------------------------------------------*/
+
+/*ビデオチャット----------------------------------------------------------------*/
 $(function() {
   // Peer object
   const peer = new Peer({
@@ -124,11 +200,11 @@ $(function() {
   function step3(room) {
     // chatboxを追加する
     const chatbox = $('<div></div>').addClass('chatbox').attr('id', 'chatbox-'+room.name);
-    const header = $('<h4></h4>').html('Room: <strong>' + room.name + '</strong>');
-    const messages = $('<div><em>Peer connected.</em></div>').addClass('messages');
+    const header = $('<h4></h4>').html('テキストチャット<strong>' + '</strong>');
+    const messages = $('<div><em></em></div>').addClass('messages');
     chatbox.append(header);
     chatbox.append(messages);
-    $('#chatframe').append(chatbox);
+    $('#chatframe').prepend(chatbox);
 
     // メッセージ送信部分
     $('#sendtextform').on('submit', e => {
@@ -136,7 +212,7 @@ $(function() {
       const msg = $('#mymessage').val();
       // ルームに送って自分のところにも反映
       room.send(msg);
-      messages.prepend('<div><span class="you">You: </span>' + msg + '</div>');
+      messages.prepend('<div><span class="you">あなた: </span>' + msg + '</div>');
       $('#mymessage').val('');
     });
 
@@ -147,22 +223,21 @@ $(function() {
     });
 
     room.on('peerJoin', peerId => {
-      messages.prepend('<div><span class="peer">' + peerId.substr(0,8) + '</span>: has joined the room </div>');
+      messages.prepend('<div><span class="peer">' + peerId.substr(0,8) + '</span>: このルームに参加しました。</div>');
     });
 
     room.on('peerLeave', peerId => {
-      messages.prepend('<div><span class="peer">' + peerId.substr(0,8) + '</span>: has left the room </div>');
+      messages.prepend('<div><span class="peer">' + peerId.substr(0,8) + '</span>: このルームから退出しました。</div>');
     });
 
     // streamが飛んできたら相手の画面を追加する
     room.on('stream', stream => {
       const peerId = stream.peerId;
       const id = 'video_' + peerId + '_' + stream.id.replace('{', '').replace('}', '');
-
+      $('#remote-video').remove();
       $('#their-videos').append($(
         '<div class="video_' + peerId +'" id="' + id + '">' +
-          '<label>' + stream.peerId + ':' + stream.id + '</label>' +
-          '<video class="remoteVideos" autoplay playsinline>' +
+          '<video class="remote-video" autoplay playsinline>' +
         '</div>'));
       const el = $('#' + id).find('video').get(0);
       el.srcObject = stream;
@@ -178,8 +253,11 @@ $(function() {
     room.on('close', step2);
     room.on('peerLeave', peerId => {
       $('.video_' + peerId).remove();
+      $('#video-container').prepend('<video class="remote-video "id="remote-video" muted="true" autoplay playsinline></video>');
     });
     $('#step1, #step2').hide();
     $('#step3').show();
   }
-});
+  });
+
+/*----------------------------------------------------------------------------*/

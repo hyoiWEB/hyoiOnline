@@ -74,6 +74,21 @@ $(function() {
 		}
 	});
 });
+
+/*リンクを別窓で開く*/
+function externalLinks(){
+    if(!document.getElementsByTagName){
+        return;
+    }
+    var _1=document.getElementsByTagName("a");
+    for(var i=0;i<_1.length;i++){
+        var _3=_1[i];
+        if(_3.getAttribute("href")&&_3.getAttribute("rel")==="external"){
+            _3.target="sharelocation";
+        }
+    }
+}
+window.onload=externalLinks;
 /*----------------------------------------------------------------------------*/
 
 /*ビデオチャット----------------------------------------------------------------*/

@@ -95,7 +95,7 @@ window.onload=externalLinks;
 $(function() {
   // Peer object
   const peer = new Peer({
-    key:   "ebd5349b-10aa-4435-8de0-0b2f303e88d7",
+    key:   "bc3292a3-35bd-4289-ac50-359c8100377c",
     debug: 3,
   });
 
